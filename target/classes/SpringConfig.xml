@@ -1,0 +1,61 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd" default-lazy-init="true">
+
+	<bean id="restaurantBean" class="com.gontuseries.springcore.Restaurant">
+		<property name="welcomeNote" value="${welcomeNote}" />
+		<property name="list">
+			<list>
+				<value>lol</value>
+				<value>lol1</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<value>classpath:spring.properties</value>
+		</property>
+	</bean>
+
+<!--	<bean class="com.gontuseries.springcore.DemoBeanPostProcessor"></bean>
+
+	<bean class="com.gontuseries.springcore.DemoBeanPostProcessor1"></bean>
+
+		<bean class="com.gontuseries.springcore.DemoBeanFactoryPostProcessor"></bean>-->
+
+		<bean id="Actual" class="com.gontuseries.springaop.Actual" />
+		<bean id="BeforeAdvisor" class="com.gontuseries.springaop.BeforeAdvisor" />
+		<bean id="AfterAdvisor" class="com.gontuseries.springaop.AfterAdvisor" />
+		<bean id="AroundAdvisor" class="com.gontuseries.springaop.AroundAdvisor" />
+		<bean id="Validator" class="com.gontuseries.springaop.Validator" />
+		<bean id="ThrowsAdvisor" class="com.gontuseries.springaop.ThrowsAdvisor" />
+
+		<bean id="proxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+				<property name="target" ref="Actual"></property>
+				<property name="interceptorNames">
+						<list>
+								<value>BeforeAdvisor</value>
+								<value>AfterAdvisor</value>
+								<value>AroundAdvisor</value>
+						</list>
+				</property>
+		</bean>
+
+		<bean id="proxynew" class="org.springframework.aop.framework.ProxyFactoryBean">
+				<property name="target" ref="Validator"></property>
+				<property name="interceptorNames">
+						<list>
+								<value>ThrowsAdvisor</value>
+						</list>
+				</property>
+		</bean>
+
+		<bean id="Operation" class="com.gontuseries.springaop.Operation" />
+		<bean id="TrackOperation" class="com.gontuseries.springaop.TrackOperation" />
+
+		<bean class="org.springframework.aop.aspectj.annotation.AnnotationAwareAspectJAutoProxyCreator" />
+
+</beans>
