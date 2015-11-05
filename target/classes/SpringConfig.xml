@@ -1,7 +1,10 @@
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
-http://www.springframework.org/schema/beans/spring-beans-3.0.xsd" default-lazy-init="true">
+<beans xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"   
+    xmlns:aop="http://www.springframework.org/schema/aop"  
+    xsi:schemaLocation="http://www.springframework.org/schema/beans  
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd   
+    http://www.springframework.org/schema/aop   
+    http://www.springframework.org/schema/aop/spring-aop-3.0.xsd " default-lazy-init="true">
 
 	<bean id="restaurantBean" class="com.gontuseries.springcore.Restaurant">
 		<property name="welcomeNote" value="${welcomeNote}" />
@@ -24,38 +27,68 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd" default-lazy-i
 
 	<bean class="com.gontuseries.springcore.DemoBeanPostProcessor1"></bean>
 
-		<bean class="com.gontuseries.springcore.DemoBeanFactoryPostProcessor"></bean>-->
+    <bean class="com.gontuseries.springcore.DemoBeanFactoryPostProcessor"></bean>-->
 
-		<bean id="Actual" class="com.gontuseries.springaop.Actual" />
-		<bean id="BeforeAdvisor" class="com.gontuseries.springaop.BeforeAdvisor" />
-		<bean id="AfterAdvisor" class="com.gontuseries.springaop.AfterAdvisor" />
-		<bean id="AroundAdvisor" class="com.gontuseries.springaop.AroundAdvisor" />
-		<bean id="Validator" class="com.gontuseries.springaop.Validator" />
-		<bean id="ThrowsAdvisor" class="com.gontuseries.springaop.ThrowsAdvisor" />
+    <bean id="Actual" class="com.gontuseries.springaop.Actual" />
+    <bean id="BeforeAdvisor" class="com.gontuseries.springaop.BeforeAdvisor" />
+    <bean id="AfterAdvisor" class="com.gontuseries.springaop.AfterAdvisor" />
+    <bean id="AroundAdvisor" class="com.gontuseries.springaop.AroundAdvisor" />
+    <bean id="Validator" class="com.gontuseries.springaop.Validator" />
+    <bean id="ThrowsAdvisor" class="com.gontuseries.springaop.ThrowsAdvisor" />
 
-		<bean id="proxy" class="org.springframework.aop.framework.ProxyFactoryBean">
-				<property name="target" ref="Actual"></property>
-				<property name="interceptorNames">
-						<list>
-								<value>BeforeAdvisor</value>
-								<value>AfterAdvisor</value>
-								<value>AroundAdvisor</value>
-						</list>
-				</property>
-		</bean>
+    <bean id="proxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="target" ref="Actual"></property>
+        <property name="interceptorNames">
+            <list>
+                <value>BeforeAdvisor</value>
+                <value>AfterAdvisor</value>
+                <value>AroundAdvisor</value>
+            </list>
+        </property>
+    </bean>
 
-		<bean id="proxynew" class="org.springframework.aop.framework.ProxyFactoryBean">
-				<property name="target" ref="Validator"></property>
-				<property name="interceptorNames">
-						<list>
-								<value>ThrowsAdvisor</value>
-						</list>
-				</property>
-		</bean>
+    <bean id="proxynew" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="target" ref="Validator"></property>
+        <property name="interceptorNames">
+            <list>
+                <value>ThrowsAdvisor</value>
+            </list>
+        </property>
+    </bean>
 
-		<bean id="Operation" class="com.gontuseries.springaop.Operation" />
-		<bean id="TrackOperation" class="com.gontuseries.springaop.TrackOperation" />
+    <aop:aspectj-autoproxy/>
 
-		<bean class="org.springframework.aop.aspectj.annotation.AnnotationAwareAspectJAutoProxyCreator" />
+    <bean id="Operation" class="com.gontuseries.springaop.Operation" />
+    <bean id="TrackOperation" class="com.gontuseries.springaop.TrackOperation" />
+
+    <!--<bean class="org.springframework.aop.aspectj.annotation.AnnotationAwareAspectJAutoProxyCreator" />-->
+    
+    <aop:config>
+        <aop:aspect id="myaspect" ref="TrackOperation" >
+            <!-- @Before -->
+            <!--
+            <aop:pointcut id="pointCutBefore" expression="execution(* com.gontuseries.springaop.Operation.*(..))" />
+            <aop:before method="myadvice" pointcut-ref="pointCutBefore" />
+            -->
+            <!-- @After -->
+            <!--
+            <aop:pointcut id="pointCutAfter" expression="execution(* com.gontuseries.springaop.Operation.*(..))" />
+            <aop:after method="myadvice" pointcut-ref="pointCutAfter" />
+            -->
+            <!-- @AfterReturning -->
+            <!--
+            <aop:pointcut id="pointCutAfterReturning" expression="execution(int com.gontuseries.springaop.Operation.*(..))" />
+            <aop:after-returning method="myadvice" returning="result" pointcut-ref="pointCutAfterReturning" />
+            -->
+            <!-- @Around -->
+            <!--
+            <aop:pointcut id="pointCutAround" expression="execution(* com.gontuseries.springaop.Operation.*(..))" />
+            <aop:around method="myadvice" pointcut-ref="pointCutAround" />
+            -->
+            <!-- @AfterThrowing -->
+            <aop:pointcut id="pointCutAfterThrowing" expression="execution(* com.gontuseries.springaop.Operation.*(..))" />
+            <aop:after-throwing method="myadvice" throwing="error" pointcut-ref="pointCutAfterThrowing" />
+        </aop:aspect>
+    </aop:config>
 
 </beans>
