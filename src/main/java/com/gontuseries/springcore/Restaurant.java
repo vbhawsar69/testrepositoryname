@@ -16,7 +16,7 @@ public class Restaurant{
 		System.out.println(list);
 		
 		System.out.println(welcomeNote);
-//		System.out.println("welcome to our restaurant");
+		// System.out.println("welcome to our restaurant");
 	}
 
 	public void destroy(){

@@ -11,11 +11,11 @@ package com.gontuseries.springaop;
  */
 public class Validator {
 
-  public void validate(int age) throws Exception {
-	if (age < 18) {
-	  throw new Exception("not eligible to vote");
-	} else {
-	  System.out.println("vote confirmed");
+	public void validate(int age) throws Exception {
+		if (age < 18) {
+			throw new Exception("not eligible to vote");
+		} else {
+			System.out.println("vote confirmed");
+		}
 	}
-  }
 }

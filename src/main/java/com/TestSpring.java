@@ -7,11 +7,11 @@ import com.gontuseries.TestSpringHibernate;
 @SuppressWarnings("unused")
 public class TestSpring {
 
-    public static void main(String[] args) {
+	public static void main(String[] args) {
 
-//	TestSpringCore.myMain();
-//	TestSpringAop.myMain();
-//      TestSpringHibernate.mymain();
-    }
+		// TestSpringCore.myMain();
+		// TestSpringAop.myMain();
+		// TestSpringHibernate.mymain();
+	}
 
 }
