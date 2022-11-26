@@ -9,7 +9,7 @@ public class TestSpring {
 
 	public static void main(String[] args) {
 
-		// TestSpringCore.myMain();
+		 TestSpringCore.myMain();
 		// TestSpringAop.myMain();
 		// TestSpringHibernate.mymain();
 	}
